@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import react from './pictures/react.png'
+import netcore from './pictures/netcore.png'
+import mssql from './pictures/mssql.png'
 export class Home extends Component {
     static displayName = Home.name;
 
@@ -6,6 +9,7 @@ export class Home extends Component {
         super(props);
         this.state = { table: [], loading: true, value: '' };
         this.handleChange = this.handleChange.bind(this);
+        this.Connect();
     }
 
     static tableComp(table) {
@@ -43,6 +47,7 @@ Connect = () => {
         catch (err) {
             console.log(err);
         }
+        this.Connect();
     }
 
     handleChange(event){
@@ -52,15 +57,26 @@ Connect = () => {
   render () {
     return (
         <div>
-                <div className="form-group">
-                <label> ФИО</label>
-                <input className="form-text text-muted" placeholder="Введите ФИО" onChange={this.handleChange}/>
+            <div className="row">
+                <div className="form-group" style={{ marginLeft:17+'px' }}>
+                    <label> ФИО</label>
+                    <input className="form-text text-muted" placeholder="Введите ФИО" style={{ width:215+'px' }} onChange={this.handleChange} />
+                    <div className="btnStyle" style={{ marginTop: 10 + 'px' }}>
+                        <button className="btn btn-success" style={{ marginRight: 3 + 'px'}} onClick={this.Connect}>Обновить</button>
+                        <button className="btn btn-success" onClick={this.Add}>Добавить</button>
+                    </div>
                 </div>
-                <button className="btn btn-success" style={{ marginRight: 3 + 'px' }} onClick={this.Connect}>Обновить</button>
-                <button className="btn btn-success" onClick={this.Add}>Добавить</button>
-                <br />
-                <br />
-                <br />
+                <div className="row" style={{ marginLeft: 300 + 'px', marginTop: 50 + 'px' }}>
+                    <h4 className="text-around-picture" style={{ marginRight:15+'px' }}><b>Stack:</b></h4>
+
+                    <img src={netcore} className="img" />
+                    <h4 className="text-around-picture"><b>+</b></h4>
+                    <img src={react} className="img" /> 
+                    <h4 className="text-around-picture"><b>+</b></h4>
+                    <img src={mssql} className="img" /> 
+
+                </div>
+            </div>
             {Home.tableComp([this.state.table])}
         </div>
 
