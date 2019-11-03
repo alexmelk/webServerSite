@@ -4,7 +4,8 @@ export class Home extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { table: [], loading: true };
+        this.state = { table: [], loading: true, value: '' };
+        this.handleChange = this.handleChange.bind(this);
     }
 
     static tableComp(table) {
@@ -13,12 +14,13 @@ export class Home extends Component {
             <table className="table table-bordered">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>ФИО</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        table[0].map((element) => (<tr><td>{element}</td></tr>))
+                        table[0].map((element, index) => (<tr><td>{index}</td><td>{element}</td></tr>))
                     }
                 </tbody>
             </table>
@@ -34,18 +36,31 @@ Connect = () => {
         console.log(err);
     }
     }
+    Add = () => {
+        try {
+            fetch("Home/Add?FIO=" + this.state.value);
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    handleChange(event){
+         this.setState({ value: event.target.value });
+    }
+
   render () {
     return (
         <div>
-            <form>
                 <div className="form-group">
-                    <label> ФИО</label>
-                    <input className="form-text text-muted" placeholder="Введите ФИО" />
+                <label> ФИО</label>
+                <input className="form-text text-muted" placeholder="Введите ФИО" onChange={this.handleChange}/>
                 </div>
-                <button className="btn btn-success" style={{ marginRight: 3 + 'px' }} onClick={this.Connect}>Подключиться</button>
-                    <button className="btn btn-success">Добавить</button>
-            </form>
-            <br/>
+                <button className="btn btn-success" style={{ marginRight: 3 + 'px' }} onClick={this.Connect}>Обновить</button>
+                <button className="btn btn-success" onClick={this.Add}>Добавить</button>
+                <br />
+                <br />
+                <br />
 
             {Home.tableComp([this.state.table])}
         </div>
