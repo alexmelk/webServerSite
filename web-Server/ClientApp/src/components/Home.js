@@ -52,6 +52,7 @@ Connect = () => {
   render () {
     return (
         <div>
+
                 <div className="form-group">
                 <label> ФИО</label>
                 <input className="form-text text-muted" placeholder="Введите ФИО" onChange={this.handleChange}/>
@@ -64,6 +65,7 @@ Connect = () => {
 
             {Home.tableComp([this.state.table])}
         </div>
+
     );
     }
 }
