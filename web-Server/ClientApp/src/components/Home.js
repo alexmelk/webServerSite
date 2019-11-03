@@ -60,7 +60,7 @@ Connect = () => {
             <div className="row">
                 <div className="form-group" style={{ marginLeft:17+'px' }}>
                     <label> ФИО</label>
-                    <input className="form-text text-muted" placeholder="Введите ФИО" style={{ width:215+'px' }} onChange={this.handleChange} />
+                    <input className="form-text text-muted" placeholder="Введите ФИО" style={{ width:195+'px' }} onChange={this.handleChange} />
                     <div className="btnStyle" style={{ marginTop: 10 + 'px' }}>
                         <button className="btn btn-success" style={{ marginRight: 3 + 'px'}} onClick={this.Connect}>Обновить</button>
                         <button className="btn btn-success" onClick={this.Add}>Добавить</button>
