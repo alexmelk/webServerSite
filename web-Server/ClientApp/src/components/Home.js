@@ -9,19 +9,17 @@ export class Home extends Component {
 
     static tableComp(table) {
         return (<div>
-            <h1>H W</h1>
+            <h2>Таблица из БД</h2>
             <table className="table table-bordered">
                 <thead>
                     <tr>
-                        <td>ФИО</td>
+                        <th>ФИО</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {table.map(row =>
-                        <tr>
-                            <td>{row}</td>
-                        </tr>
-                    )}
+                    {
+                        table[0].map((element) => (<tr><td>{element}</td></tr>))
+                    }
                 </tbody>
             </table>
         </div>);
@@ -39,8 +37,17 @@ Connect = () => {
   render () {
     return (
         <div>
+            <form>
+                <div className="form-group">
+                    <label> ФИО</label>
+                    <input className="form-text text-muted" placeholder="Введите ФИО" />
+                </div>
+                <button className="btn btn-success" style={{ marginRight: 3 + 'px' }} onClick={this.Connect}>Подключиться</button>
+                    <button className="btn btn-success">Добавить</button>
+            </form>
+            <br/>
+
             {Home.tableComp([this.state.table])}
-            <button className="btn btn-success" onClick={this.Connect}>Подключиться</button>
         </div>
     );
     }
