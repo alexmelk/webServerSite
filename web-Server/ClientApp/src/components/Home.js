@@ -18,7 +18,7 @@ export class Home extends Component {
             <table className="table table-bordered">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>№</th>
                         <th>ФИО</th>
                     </tr>
                 </thead>
@@ -60,13 +60,13 @@ Connect = () => {
             <div className="row">
                 <div className="form-group" style={{ marginLeft:17+'px' }}>
                     <label> ФИО</label>
-                    <input className="form-text text-muted" placeholder="Введите ФИО" style={{ width:195+'px' }} onChange={this.handleChange} />
+                    <input className="form-text text-muted" placeholder="Введите ФИО" style={{ width:95+'%' }} onChange={this.handleChange} />
                     <div className="btnStyle" style={{ marginTop: 10 + 'px' }}>
                         <button className="btn btn-success" style={{ marginRight: 3 + 'px'}} onClick={this.Connect}>Обновить</button>
                         <button className="btn btn-success" onClick={this.Add}>Добавить</button>
                     </div>
                 </div>
-                <div className="row" style={{ marginLeft: 300 + 'px', marginTop: 50 + 'px' }}>
+                <div className="row" style={{ marginLeft: 20 + '%', marginTop:3 + '%' }}>
                     <h4 className="text-around-picture" style={{ marginRight:15+'px' }}><b>Stack:</b></h4>
 
                     <img src={netcore} className="img" />
