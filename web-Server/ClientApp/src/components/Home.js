@@ -42,7 +42,7 @@ Connect = () => {
     }
     Add = () => {
         try {
-            fetch("Home/Add?FIO=" + this.state.value);
+            fetch("Home/Add?FIO=" + this.state.value).then(this.Connect);
         }
         catch (err) {
             console.log(err);
@@ -62,7 +62,7 @@ Connect = () => {
                     <label> ФИО</label>
                     <input className="form-text text-muted" placeholder="Введите ФИО" style={{ width:95+'%' }} onChange={this.handleChange} />
                     <div className="btnStyle" style={{ marginTop: 10 + 'px' }}>
-                        <button className="btn btn-success" style={{ marginRight: 3 + 'px'}} onClick={this.Connect}>Обновить</button>
+                        //<button className="btn btn-success" style={{ marginRight: 3 + 'px'}} onClick={this.Connect}>Обновить</button>
                         <button className="btn btn-success" onClick={this.Add}>Добавить</button>
                     </div>
                 </div>
