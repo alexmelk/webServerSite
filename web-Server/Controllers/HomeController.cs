@@ -12,39 +12,74 @@ namespace Web_Server.Controllers
     {
         public IActionResult Index()
         {
-            SqlConnection connection = new SqlConnection("Server=tcp:bd-server.database.windows.net,1433;Initial Catalog=bd;Persist Security Info=False;User ID=alexmelk;Password=123123BDbd;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
-            connection.Open();
-
-            SqlCommand command = new SqlCommand("Select FIO from Users", connection);
-            List<string> FIO = new List<string>();
-
-            var reader = command.ExecuteReader();
-            if (reader.HasRows)
+            try
             {
-                while (reader.Read())
+                SqlConnection connection = new SqlConnection("Server=tcp:bd-server.database.windows.net,1433;Initial Catalog=bd_users;Persist Security Info=False;User ID=alexmelk;Password=123123BDbd;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                connection.Open();
+
+                SqlCommand command = new SqlCommand("SELECT [ID],[FIO] FROM[dbo].[Users]", connection);
+                List<List<string>> FIO = new List<List<string>>();
+
+                var reader = command.ExecuteReader();
+
+                if (reader.HasRows)
                 {
-                    FIO.Add(reader.GetValue(0).ToString());
+                    while (reader.Read())
+                    {
+                        FIO.Add(new List<string>());
+                        FIO[FIO.Count - 1].Add(reader.GetValue(0).ToString());
+                        FIO[FIO.Count - 1].Add(reader.GetValue(1).ToString());
+                    }
                 }
+
+                connection.Close();
+                return Json(FIO);
             }
-
-            connection.Close();
-
-            return Json(FIO);
+            catch (Exception err) { Console.WriteLine(err); }
+            return Json("ERR");
         }
         public IActionResult Add(string FIO)
         {
-            if (FIO != null)
+            try
             {
-                SqlConnection connection = new SqlConnection("Server=tcp:bd-server.database.windows.net,1433;Initial Catalog=bd;Persist Security Info=False;User ID=alexmelk;Password=123123BDbd;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
-                connection.Open();
+                if (FIO != null)
+                {
+                    SqlConnection connection = new SqlConnection("Server=tcp:bd-server.database.windows.net,1433;Initial Catalog=bd_users;Persist Security Info=False;User ID=alexmelk;Password=123123BDbd;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                    connection.Open();
 
-                SqlCommand command = new SqlCommand("INSERT INTO Users (FIO) VALUES('" + FIO + "')", connection);
+                    SqlCommand command = new SqlCommand("INSERT INTO Users (FIO) VALUES('" + FIO + "')", connection);
 
-                command.ExecuteScalar();
+                    command.ExecuteScalar();
 
-                connection.Close();
+                    connection.Close();
+                }
+                return Json("OK");
             }
-            return Json("OK");
+            catch (Exception err) { Console.WriteLine(err); }
+            return Json("ERR");
+
         }
+        public IActionResult Remove(int ID)
+        {
+            try
+            {
+                if (ID != 0)
+                {
+                    SqlConnection connection = new SqlConnection("Server=tcp:bd-server.database.windows.net,1433;Initial Catalog=bd_users;Persist Security Info=False;User ID=alexmelk;Password=123123BDbd;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                    connection.Open();
+
+                    SqlCommand command = new SqlCommand("DELETE FROM [dbo].[Users]WHERE ID = " + ID, connection);
+
+                    command.ExecuteScalar();
+
+                    connection.Close();
+                }
+                return Json("OK");
+            }
+            catch (Exception err) { Console.WriteLine(err); }
+            return Json("ERR");
+
+        }
+
     }
 }
