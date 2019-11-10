@@ -7,9 +7,7 @@ export class Home extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { table: [[],[]], loading: true, rowFIO: '', rowID:''};
-        this.handleChange = this.handleChange.bind(this);
-        this.handleChangeRemove = this.handleChangeRemove.bind(this);
+        this.state = { table: [{ id: '' }, {fio: ''}], loading: false, rowFIO: '', rowID:''};
         this.Connect();
     }
 
@@ -25,7 +23,7 @@ export class Home extends Component {
                 </thead>
                 <tbody>
                     {
-                        table[0].map((element, index) => (<tr><td>{element[0]}</td><td>{element[1]}</td></tr>))
+                        table[0].map((element, index) => (<tr><td>{element.id}</td><td>{element.fio}</td></tr>))
                     }
                 </tbody>
             </table>
@@ -35,17 +33,17 @@ export class Home extends Component {
 
     Connect = () =>{
     try {
-        fetch("Home/Index").then(response => response.json()).then(repos => { this.setState({ table: repos, loading: false }); console.log(repos) });
+        fetch("Home/Index").then(response => response.json()).then(repos => { this.setState({ table: repos, loading: true }); });
     }
     catch (err) {
         console.log(err);
-    }
+        }
     }
 
 
-    Add = () =>{
+    Add = () => {
+        this.setState.loading = false;
         try {
-            console.log(this.state.rowFIO);
             fetch("Home/Add?FIO=" + this.state.rowFIO).then(this.Connect);
         }
         catch (err) {
@@ -55,6 +53,7 @@ export class Home extends Component {
 
 
     Remove = () => {
+        this.setState.loading = false;
         try {
             fetch("Home/Remove?ID=" + this.state.rowID).then(this.Connect);
         }
@@ -64,15 +63,16 @@ export class Home extends Component {
     }
 
 
-    handleChange(event){
+    handleChange = (event) => {
         this.setState({ rowFIO: event.target.value });
     }
-    handleChangeRemove(event) {
+    handleChangeRemove = (event) => {
         this.setState({ rowID: event.target.value });
     }
 
-  render () {
-    return (
+    render() {
+        let table = !this.state.loading ? <p><em>Загрузка...</em></p> : Home.tableComp([this.state.table]);
+      return (
         <div>
             <div className="row">
                 <div className="form-group" style={{ marginLeft:17+'px' }}>
@@ -101,7 +101,7 @@ export class Home extends Component {
 
                 </div>
             </div>
-            {Home.tableComp([this.state.table])}
+            { table }
         </div>
 
     );

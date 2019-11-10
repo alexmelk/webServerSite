@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<efcore namespace="Web_Server" p1:Guid="8ababeab-4851-4269-bec5-3cfdd60ec6dc" xmlns:p1="http://devart.com/schemas/EntityDeveloper/1.0">
+  <class name="User" entity-set="Users" table="Users" schema="dbo" p1:Guid="495c32e1-c02b-4fae-9f1d-79b43de60894">
+    <id name="ID" type="Int32" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="c53424b2-d6cf-44a8-b4c3-4a536663ce8e">
+      <column name="ID" not-null="True" precision="10" scale="0" sql-type="int" p1:unicode="False" />
+    </id>
+    <property name="FIO" type="Clob" p1:nullable="True" p1:ValidateMaxLength="2147483647" p1:ValidateRequired="false" p1:Guid="cfe105fe-b73e-4872-a719-151471a8724c">
+      <column name="FIO" not-null="False" length="2147483647" sql-type="text" p1:unicode="False" />
+    </property>
+  </class>
+</efcore>
